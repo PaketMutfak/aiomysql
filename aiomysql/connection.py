@@ -18,7 +18,7 @@ from pymysql.constants import COMMAND
 from pymysql.constants import CR
 from pymysql.constants import FIELD_TYPE
 from pymysql.converters import (escape_item, encoders, decoders,
-                                escape_string, escape_bytes_prefixed, through)
+                                escape_string, escape_bytes, through)
 from pymysql.err import (Warning, Error,
                          InterfaceError, DataError, DatabaseError,
                          OperationalError,
@@ -415,7 +415,7 @@ class Connection:
         if isinstance(obj, str):
             return "'" + self.escape_string(obj) + "'"
         if isinstance(obj, bytes):
-            return escape_bytes_prefixed(obj)
+            return escape_bytes(obj)
         return escape_item(obj, self._charset)
 
     def literal(self, obj):
